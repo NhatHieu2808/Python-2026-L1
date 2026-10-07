@@ -1,3 +1,4 @@
+import argparse
 import sys
 
 try:
@@ -6,6 +7,7 @@ except ImportError:
     curses = None
 
 from domains import StudentMarkManager
+from persistence import DEFAULT_DIRECTORY, load_data, save_archive
 from input import (
     input_course,
     input_course_curses,
@@ -33,7 +35,7 @@ def run_action(action, manager):
         action(manager)
         if action in (input_student, input_course, input_mark):
             print("Saved successfully.")
-    except ValueError as error:
+    except (ValueError, OSError) as error:
         print(error)
 
 
@@ -61,6 +63,12 @@ def run_menu(manager):
         print("0. Exit")
         choice = input("Choose an option: ").strip()
         if choice == "0":
+            try:
+                save_archive(manager)
+            except (ValueError, OSError) as error:
+                print(f"Could not save students.dat: {error}. Please retry.")
+                continue
+            print("Saved students.dat (ZIP DEFLATE).")
             print("Goodbye.")
             return
         action = actions.get(choice)
@@ -74,7 +82,7 @@ def run_curses_action(action, screen, manager, success_message):
     try:
         action(screen, manager)
         show_lines_curses(screen, "Success", [success_message])
-    except ValueError as error:
+    except (ValueError, OSError) as error:
         show_lines_curses(screen, "Error", [str(error)])
 
 
@@ -98,6 +106,11 @@ def run_curses_menu(screen, manager):
         screen.refresh()
         choice = screen.getch()
         if choice == ord("0"):
+            try:
+                save_archive(manager)
+            except (ValueError, OSError) as error:
+                show_lines_curses(screen, "Save error", [str(error), "Data remains in memory. Retry exit to save."])
+                continue
             return
         if choice == ord("1"):
             run_curses_action(input_student_curses, screen, manager, "Student added.")
@@ -119,13 +132,21 @@ def run_curses_menu(screen, manager):
             show_lines_curses(screen, "Input error", ["Invalid option."])
 
 
-def main():
-    manager = StudentMarkManager()
+def main(data_directory=DEFAULT_DIRECTORY):
+    try:
+        manager = load_data(data_directory)
+    except (ValueError, OSError, UnicodeError) as error:
+        print(f"Cannot load saved data: {error}")
+        print("Startup stopped. Repair or restore the saved data before continuing.")
+        return 2
     if curses is not None and sys.stdin.isatty() and sys.stdout.isatty():
         curses.wrapper(run_curses_menu, manager)
     else:
         run_menu(manager)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Practical work 5: persistent student marks")
+    parser.add_argument("--data-dir", default=DEFAULT_DIRECTORY, help="Directory for the three text files and students.dat")
+    sys.exit(main(parser.parse_args().data_dir))

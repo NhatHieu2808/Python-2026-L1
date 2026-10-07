@@ -12,13 +12,37 @@ def input_positive_integer(prompt):
         print("Please enter a non-negative integer.")
 
 
+def input_unique_id(prompt, used_ids):
+    while True:
+        item_id = input(prompt).strip()
+        if not item_id:
+            print("ID cannot be empty.")
+        elif item_id in used_ids:
+            print("ID already exists.")
+        else:
+            used_ids.add(item_id)
+            return item_id
+
+
+def validate_unique_ids(items, item_name):
+    used_ids = set()
+    for item in items:
+        item_id = item.get("id", "")
+        if not item_id:
+            raise ValueError(f"{item_name} ID cannot be empty")
+        if item_id in used_ids:
+            raise ValueError(f"Duplicate {item_name.lower()} ID: {item_id}")
+        used_ids.add(item_id)
+
+
 def input_students():
     students = []
+    used_ids = set()
     number_of_students = input_positive_integer("Number of students: ")
     for index in range(number_of_students):
         print(f"Student {index + 1}")
         student = {
-            "id": input("ID: ").strip(),
+            "id": input_unique_id("ID: ", used_ids),
             "name": input("Name: ").strip(),
             "dob": input("Date of birth: ").strip(),
         }
@@ -28,11 +52,12 @@ def input_students():
 
 def input_courses():
     courses = []
+    used_ids = set()
     number_of_courses = input_positive_integer("Number of courses: ")
     for index in range(number_of_courses):
         print(f"Course {index + 1}")
         course = {
-            "id": input("ID: ").strip(),
+            "id": input_unique_id("ID: ", used_ids),
             "name": input("Name: ").strip(),
         }
         courses.append(course)
@@ -47,6 +72,8 @@ def find_course(courses, course_id):
 
 
 def input_marks(students, courses, marks):
+    validate_unique_ids(students, "Student")
+    validate_unique_ids(courses, "Course")
     course_id = input("Course ID: ").strip()
     course = find_course(courses, course_id)
     if course is None:

@@ -3,6 +3,7 @@ try:
 except ImportError:
     curses = None
 
+from persistence import save_text_files
 from output import show_lines_curses
 
 
@@ -50,6 +51,7 @@ def input_student(manager):
         read_non_empty("Student name: "),
         read_non_empty("Date of birth: "),
     )
+    save_text_files(manager)
 
 
 def input_course(manager):
@@ -58,6 +60,7 @@ def input_course(manager):
         read_non_empty("Course name: "),
         read_positive_integer("Credits: "),
     )
+    save_text_files(manager)
 
 
 def input_mark(manager):
@@ -66,6 +69,7 @@ def input_mark(manager):
         read_non_empty("Course ID: "),
         read_score("Score: "),
     )
+    save_text_files(manager)
 
 
 def read_curses_text(screen, prompt):
@@ -131,6 +135,7 @@ def input_student_curses(screen, manager):
         read_curses_text(screen, "Student name"),
         read_curses_text(screen, "Date of birth"),
     )
+    save_text_files(manager)
 
 
 def input_course_curses(screen, manager):
@@ -139,6 +144,7 @@ def input_course_curses(screen, manager):
         read_curses_text(screen, "Course name"),
         read_curses_positive_integer(screen, "Credits"),
     )
+    save_text_files(manager)
 
 
 def input_mark_curses(screen, manager):
@@ -147,6 +153,7 @@ def input_mark_curses(screen, manager):
         read_curses_text(screen, "Course ID"),
         read_curses_score(screen, "Score"),
     )
+    save_text_files(manager)
 
 
 def input_students(manager):
@@ -157,6 +164,7 @@ def input_students(manager):
         name = read_non_empty("Name: ")
         date_of_birth = read_non_empty("Date of birth: ")
         manager.add_student(student_id, name, date_of_birth)
+    save_text_files(manager)
 
 
 def input_courses(manager):
@@ -167,6 +175,7 @@ def input_courses(manager):
         name = read_non_empty("Name: ")
         credits = read_positive_integer("Credits: ")
         manager.add_course(course_id, name, credits)
+    save_text_files(manager)
 
 
 def input_marks(manager):
@@ -180,3 +189,4 @@ def input_marks(manager):
                     break
                 except ValueError as error:
                     print(error)
+    save_text_files(manager)
