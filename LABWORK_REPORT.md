@@ -5,7 +5,7 @@ Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm chứng ngày 08/10/202
 ## Nguồn yêu cầu
 
 [Thư mục môn học](https://drive.google.com/drive/folders/17cWgUNkzYeh7GmEq2Fj_QQamldU24zbs)
-có 5 PDF Labworks và 4 PDF Slides tại lần kiểm kê gần nhất.
+có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/2026.
 
 | Đề | Bài và file trong repository |
 | --- | --- |
@@ -14,6 +14,7 @@ có 5 PDF Labworks và 4 PDF Slides tại lần kiểm kê gần nhất.
 | `labwork2.pdf` | Fork, README, commit và push; xem `LABWORK2.md` |
 | `labwork3-modules-package.pdf` | PW3: `3.student.mark.oop.math.py`; PW4: `pw4/` |
 | `labwork4-files.pdf` | PW5: `pw5/` |
+| `labwork5.pdf` | 14 yêu cầu Pandas: `labwork5_pandas/main.py` |
 
 Đã đọc đầy đủ 2 trang đề PW5 và 38 trang bài giảng
 `4. Files and Directories.pdf` trước khi triển khai phần lưu dữ liệu.
@@ -25,7 +26,7 @@ có 5 PDF Labworks và 4 PDF Slides tại lần kiểm kê gần nhất.
 - PW4 giữ đầy đủ các chức năng của PW3 khi tách module.
 - PW3, PW4 và PW5 phân trang theo chiều cao màn hình, cuộn ngang bằng Left/Right để xem GPA ở terminal 40 cột.
 - Các hàm nhập cho nhập lại ID trùng. Lớp quản lý từ chối ID rỗng, tín chỉ không phải số nguyên dương và điểm không hữu hạn.
-- `requirements.txt` ở gốc gồm NumPy và `windows-curses` cho Windows.
+- `requirements.txt` ở gốc gồm NumPy, Pandas và `windows-curses` cho Windows.
 - Báo cáo dùng đúng tên file trong repository; xem `RUNNING_LABS.md` để chạy và kiểm thử.
 
 ## Practical Work 5
@@ -40,6 +41,32 @@ Test hai tiến trình xác nhận tên tiếng Việt, điểm đã làm tròn 
 sau khi thoát và chạy lại. Các test archive rỗng/hỏng, JSON hỏng, ID trùng,
 tham chiếu sai và lỗi thay archive xác nhận dữ liệu cũ được giữ lại.
 
+## Labwork 5 Pandas
+
+`labwork5_pandas/main.py` thực hiện đủ 14 yêu cầu của `labwork5.pdf`,
+dùng hai CSV của giáo viên. Phần 1 phân tích dữ liệu gốc; phần 2 điền ô
+số thiếu bằng trung bình cột trên bản sao, ghép theo `student_id`, tính
+trung bình ba môn, top 5 và điểm trung bình theo ngành. Các giá trị điền
+được ghi rõ là ước tính. Xem [hướng dẫn bài](labwork5_pandas/README.md).
+
+Đã chạy bằng Python 3.12.14, Pandas 3.0.6 và NumPy 2.5.3:
+
+```text
+python labwork5_pandas/main.py
+python -B -m unittest discover -s tests -p test_labwork5_pandas.py -v
+```
+
+Script thoát với mã 0. Ba test riêng đã qua, kiểm tra phân tích dữ liệu gốc,
+làm sạch và ghép bảng, trung bình từng sinh viên và ngành, thứ tự top 5,
+đủ 14 mục output, chạy từ thư mục khác và bảo toàn CSV. Kết quả được đối
+chiếu bằng `csv` và `statistics.mean` độc lập với các phép tính Pandas.
+
+Dữ liệu có 30 sinh viên; ban đầu thiếu 1 `age`, 2 `GPA`, 2 `math` và
+1 `database`. Sau xử lý còn 0 ô thiếu. Top 5 theo điểm trung bình là
+Tina (96.333333), Kate (95), David (93.333333), Grace (93), Zack (92.333333).
+SHA-256 của hai CSV trong bài khớp bản tải từ Drive và không đổi sau khi chạy.
+`pip check` không phát hiện dependency hỏng.
+
 ## Bằng chứng kiểm thử
 
 Chạy từ thư mục gốc bằng Python 3.12:
@@ -48,7 +75,8 @@ Chạy từ thư mục gốc bằng Python 3.12:
 python -B -m unittest discover -s tests -v
 ```
 
-Bộ test gồm 14 test, đã chạy qua. Các nhóm kiểm tra bao gồm 12 bài Lab1,
+Bộ test bài cũ gồm 14 test, đã chạy qua ở lần kiểm chứng trước khi thêm
+Labwork 5 Pandas. Các nhóm kiểm tra bao gồm 12 bài Lab1,
 ID rỗng/trùng, điểm 0 và 10, điểm ngoài khoảng và NaN, tín chỉ không hợp lệ,
 GPA theo tín chỉ, thứ tự GPA, menu curses mô phỏng, phân trang, cuộn ngang,
 lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi.
@@ -63,6 +91,7 @@ lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi.
 | PW3 | PARTIAL: chức năng qua test, chưa đối chiếu được nguồn PW2 |
 | PW4 | PARTIAL: chức năng qua test, kế thừa giới hạn nguồn PW2 |
 | PW5 | PASS các yêu cầu lưu, nén, khôi phục đã đọc; kế thừa giới hạn nguồn PW2 |
+| Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
 
 Đề Lab1 không cung cấp danh sách màu gốc. Chương trình dùng danh sách mẫu
 có Red ở index 3 và hàm `find_color` nhận danh sách truyền vào.

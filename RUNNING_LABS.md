@@ -14,6 +14,7 @@ python labwork1b.py
 python 3.student.mark.oop.math.py
 python pw4/main.py
 python pw5/main.py
+python labwork5_pandas/main.py
 ```
 
 Trên Windows, requirements cài `windows-curses`. PW3, PW4 và PW5 dùng curses
@@ -30,6 +31,14 @@ python pw5/main.py --data-dir demo-data
 ```
 
 Đọc [hướng dẫn PW5](pw5/README.md) trước khi sửa các file dữ liệu.
+
+Labwork 5 Pandas đọc `students.csv` và `scores.csv` trong `labwork5_pandas/`.
+Xem [hướng dẫn và cách xử lý dữ liệu thiếu](labwork5_pandas/README.md).
+Để kiểm thử riêng bài mới:
+
+```text
+python -B -m unittest discover -s tests -p test_labwork5_pandas.py -v
+```
 
 Chạy bộ kiểm thử từ thư mục gốc:
 
