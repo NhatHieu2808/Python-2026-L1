@@ -29,6 +29,19 @@ có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/20
 - `requirements.txt` ở gốc gồm NumPy, Pandas và `windows-curses` cho Windows.
 - Báo cáo dùng đúng tên file trong repository; xem `RUNNING_LABS.md` để chạy và kiểm thử.
 
+## Sửa lỗi P2 nhập Unicode trong curses
+
+PW3, PW4 và PW5 dùng `get_wch()` với bộ đệm ký tự Unicode, thay cho giới hạn
+byte của `getstr()`. Chuỗi dài cuộn vùng hiển thị theo độ rộng ký tự, không
+cắt dữ liệu. Enter, Backspace, nhập rỗng và resize đã được kiểm tra. Phím
+điều hướng và các phím đặc biệt không được thêm vào chuỗi.
+
+Đã kiểm chứng curses thật trên Windows, `windows-curses` 2.4.2: cả ba phiên
+bản giữ nguyên `Nguyễn Trương Thị Phương Thảo` (29 ký tự, 39 byte UTF-8)
+và chuỗi lặp hai tên (59 ký tự) ở màn hình 10x40. Nhập ASCII, Backspace,
+nhập rỗng và thu nhỏ rồi phóng lại màn hình hoạt động. PW5 lưu tên nhập
+qua curses và một tiến trình mới khôi phục đúng tên từ `students.dat`.
+
 ## Practical Work 5
 
 PW5 sao chép PW4 và thêm `persistence.py`. Sau thao tác nhập thành công,
@@ -75,11 +88,13 @@ Chạy từ thư mục gốc bằng Python 3.12:
 python -B -m unittest discover -s tests -v
 ```
 
-Bộ test bài cũ gồm 14 test, đã chạy qua ở lần kiểm chứng trước khi thêm
-Labwork 5 Pandas. Các nhóm kiểm tra bao gồm 12 bài Lab1,
+Bộ test hiện có 20 test và đã chạy qua: 14 test bài cũ, 3 test Pandas,
+3 test hồi quy Unicode. Các nhóm kiểm tra bao gồm 12 bài Lab1,
 ID rỗng/trùng, điểm 0 và 10, điểm ngoài khoảng và NaN, tín chỉ không hợp lệ,
 GPA theo tín chỉ, thứ tự GPA, menu curses mô phỏng, phân trang, cuộn ngang,
-lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi.
+lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi. Test Unicode kiểm tra
+cả ba phiên bản với ASCII, tên tiếng Việt dài, dấu tổ hợp và ký tự rộng;
+kiểm tra Backspace, nhập rỗng, phím đặc biệt, resize và khôi phục tên PW5.
 
 ## Trạng thái và giới hạn
 

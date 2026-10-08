@@ -1,3 +1,5 @@
+import unicodedata
+
 try:
     import curses
 except ImportError:
@@ -69,30 +71,63 @@ def input_mark(manager):
 
 
 def read_curses_text(screen, prompt):
-    while True:
-        height, width = screen.getmaxyx()
-        screen.clear()
-        if height < 4 or width < 12:
-            if height > 0 and width > 1:
-                screen.addnstr(0, 0, "Resize terminal to at least 4x12", width - 1)
-            screen.refresh()
-            screen.getch()
-            continue
-        if height > 0 and width > 1:
+    characters = []
+    input_error = False
+    screen.keypad(True)
+    curses.noecho()
+    try:
+        while True:
+            height, width = screen.getmaxyx()
+            screen.clear()
+            if height < 4 or width < 12:
+                curses.curs_set(0)
+                if height > 0 and width > 1:
+                    screen.addnstr(0, 0, "Resize terminal to at least 4x12", width - 1)
+                screen.refresh()
+                screen.get_wch()
+                continue
+
+            curses.curs_set(1)
             screen.addnstr(0, 0, prompt, width - 1, curses.A_BOLD)
-        if height > 2 and width > 1:
             screen.addnstr(2, 0, "Input: ", width - 1)
-        screen.refresh()
-        curses.echo()
-        curses.curs_set(1)
-        try:
-            raw_value = screen.getstr(2, 7, width - 8)
-        finally:
-            curses.noecho()
-            curses.curs_set(0)
-        value = raw_value.decode("utf-8", errors="replace").strip()
-        if value:
-            return value
+            # Scroll the visible suffix by terminal columns, not UTF-8 bytes.
+            visible_text = ""
+            visible_columns = 0
+            for character in reversed(characters):
+                size = 0 if unicodedata.combining(character) else (
+                    2 if unicodedata.east_asian_width(character) in ("W", "F") else 1
+                )
+                if visible_columns + size > width - 8:
+                    break
+                visible_text = character + visible_text
+                visible_columns += size
+            while visible_text and unicodedata.combining(visible_text[0]):
+                visible_text = visible_text[1:]
+            if visible_text:
+                screen.addnstr(2, 7, visible_text, len(visible_text))
+            if input_error:
+                screen.addnstr(3, 0, "This value cannot be empty.", width - 1)
+            screen.move(2, 7 + visible_columns)
+            screen.refresh()
+
+            key = screen.get_wch()
+            if key in ("\n", "\r", 10, 13, curses.KEY_ENTER):
+                value = "".join(characters).strip()
+                if value:
+                    return value
+                characters.clear()
+                input_error = True
+            elif key in ("\b", "\x7f", 8, 127, curses.KEY_BACKSPACE):
+                if characters:
+                    characters.pop()
+                input_error = False
+            elif isinstance(key, str) and key.isprintable():
+                characters.append(key)
+                input_error = False
+            # Resize and other special keys redraw without changing the buffer.
+    finally:
+        curses.noecho()
+        curses.curs_set(0)
 
 
 def read_curses_unique_id(screen, prompt, existing):

@@ -61,6 +61,10 @@ class FakeCurses:
     KEY_RIGHT = 261
     KEY_NPAGE = 338
     KEY_PPAGE = 339
+    KEY_BACKSPACE = 263
+    KEY_DC = 330
+    KEY_ENTER = 343
+    KEY_RESIZE = 410
 
     @staticmethod
     def curs_set(value):
@@ -79,9 +83,12 @@ class FakeScreen:
     def __init__(self, keys, texts=(), height=24, width=80):
         self.keys = iter(keys)
         self.texts = iter(texts)
+        self.text_characters = iter(())
         self.height = height
         self.width = width
         self.writes = []
+        self.moves = []
+        self.keypad_enabled = False
 
     def getmaxyx(self):
         return self.height, self.width
@@ -100,6 +107,21 @@ class FakeScreen:
     def getch(self):
         return next(self.keys)
 
+    def keypad(self, enabled):
+        self.keypad_enabled = enabled
+
+    def move(self, row, column):
+        if not (0 <= row < self.height and 0 <= column < self.width):
+            raise AssertionError("Cursor outside the screen")
+        self.moves.append((row, column))
+
+    def get_wch(self):
+        try:
+            return next(self.text_characters)
+        except StopIteration:
+            self.text_characters = iter(next(self.texts) + "\n")
+            return next(self.text_characters)
+
     def getstr(self, row, column, length):
         if not (0 <= row < self.height and 0 <= column < self.width):
             raise AssertionError("Input outside the screen")
@@ -107,6 +129,56 @@ class FakeScreen:
 
 
 class LabworkTests(unittest.TestCase):
+    def test_unicode_input_keeps_full_names_at_40_columns(self):
+        name = "Nguyễn Trương Thị Phương Thảo"
+        for module in (PW3, PW4.input, PW5.input):
+            for value in ("Alice", name, " ".join([name] * 3),
+                          name.replace("ễ", "e\u0302\u0303"), "王小明" * 15):
+                with self.subTest(module=module.__name__, value=value):
+                    screen = FakeScreen([], [value], height=10, width=40)
+                    with patch.object(module, "curses", FakeCurses):
+                        self.assertEqual(module.read_curses_text(screen, "Student name"), value)
+                    self.assertTrue(screen.keypad_enabled)
+                    self.assertTrue(screen.moves)
+
+    def test_unicode_input_editing_empty_values_special_keys_and_resize(self):
+        class EventScreen(FakeScreen):
+            def __init__(self):
+                super().__init__([], height=10, width=40)
+                self.events = iter([
+                    "\n", " ", "\r", *"Tênx", "\b", "y", "\x7f", "z",
+                    FakeCurses.KEY_BACKSPACE, FakeCurses.KEY_LEFT,
+                    FakeCurses.KEY_UP, FakeCurses.KEY_DC, "\x1b", "\t",
+                    (3, 10), (10, 40), *" Nguyễn Thảo", FakeCurses.KEY_ENTER,
+                ])
+
+            def get_wch(self):
+                event = next(self.events)
+                if isinstance(event, tuple):
+                    self.height, self.width = event
+                    return FakeCurses.KEY_RESIZE
+                return event
+
+        for module in (PW3, PW4.input, PW5.input):
+            screen = EventScreen()
+            with patch.object(module, "curses", FakeCurses):
+                self.assertEqual(module.read_curses_text(screen, "Name"), "Tên Nguyễn Thảo")
+            self.assertTrue(any("cannot be empty" in line for line in screen.writes))
+            self.assertTrue(any("Resize" in line for line in screen.writes))
+
+    def test_pw5_unicode_name_survives_archive_restore(self):
+        name = "Nguyễn Trương Thị Phương Thảo"
+        with tempfile.TemporaryDirectory(dir=ROOT) as directory:
+            manager = PW5.manager()
+            manager.data_directory = Path(directory)
+            screen = FakeScreen([], ["S1", name, "2006-08-28"], height=10, width=40)
+            with patch.object(PW5.input, "curses", FakeCurses):
+                PW5.input.input_student_curses(screen, manager)
+            self.assertEqual(manager.students["S1"].name, name)
+            PW5.persistence.save_archive(manager)
+            restored = PW5.persistence.load_data(directory)
+            self.assertEqual(restored.students["S1"].name, name)
+
     def test_lab1_all_exercises_and_boundaries(self):
         self.assertEqual(LAB1.calculate_circle_area(10), 314.0)
         self.assertEqual(LAB1.celsius_to_fahrenheit(10), 50.0)

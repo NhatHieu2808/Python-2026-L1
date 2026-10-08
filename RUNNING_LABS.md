@@ -21,6 +21,10 @@ Trên Windows, requirements cài `windows-curses`. PW3, PW4 và PW5 dùng curses
 khi chạy trong terminal tương tác. Khi chuyển hướng input/output hoặc thiếu
 curses, chương trình dùng menu console.
 
+Trong ô nhập curses, gõ tên tiếng Việt rồi nhấn Enter. Backspace xóa ký tự
+cuối; chuỗi dài tự cuộn ngang và vẫn được giữ đầy đủ. Nếu terminal có dưới
+4 dòng hoặc dưới 12 cột, phóng to để nhập tiếp; nội dung đã gõ được giữ lại.
+
 Trong bảng curses, dùng Up/Down hoặc PageUp/PageDown để chuyển trang.
 Dùng Left/Right để xem các cột bị khuất và q hoặc Enter để quay lại.
 
