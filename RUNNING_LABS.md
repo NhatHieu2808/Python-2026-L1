@@ -14,6 +14,7 @@ python labwork1b.py
 python 3.student.mark.oop.math.py
 python pw4/main.py
 python pw5/main.py
+python pw5/extras.py
 python labwork5_pandas/main.py
 ```
 
@@ -35,6 +36,12 @@ python pw5/main.py --data-dir demo-data
 ```
 
 Đọc [hướng dẫn PW5](pw5/README.md) trước khi sửa các file dữ liệu.
+
+Labwork 5a dùng dữ liệu PW5 đã lưu. Chạy `python pw5/extras.py --data-dir
+demo-data` sau khi nhập và lưu bằng `pw5/main.py` với cùng `--data-dir`.
+Script tạo ba CSV và snapshot pickle trong `demo-data/exports/`, đọc lại
+CSV thành DataFrame và nhận điều kiện như `name = "Mr. Volunteers"`.
+Xem [cú pháp và cách chạy bản ZIP](pw5/README.md#labwork-5a-pickle-csv-và-truy-vấn).
 
 Labwork 5 Pandas đọc `students.csv` và `scores.csv` trong `labwork5_pandas/`.
 Xem [hướng dẫn và cách xử lý dữ liệu thiếu](labwork5_pandas/README.md).

@@ -1,6 +1,7 @@
 # Báo cáo bài tập Python 2026-2027
 
-Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm chứng chức năng ngày 08/10/2026.
+Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm thử tự động ngày 10/10/2026.
+Kiểm chứng curses thật ngày 08/10/2026.
 Đối chiếu thêm nguồn PW2 và câu 5 Labwork 1 ngày 10/10/2026.
 
 ## Nguồn yêu cầu
@@ -81,6 +82,27 @@ Tina (96.333333), Kate (95), David (93.333333), Grace (93), Zack (92.333333).
 SHA-256 của hai CSV trong bài khớp bản tải từ Drive và không đổi sau khi chạy.
 `pip check` không phát hiện dependency hỏng.
 
+## Labwork 5a: pickle, CSV và query
+
+Nguồn: [TXT bổ sung của giảng viên](https://drive.google.com/file/d/1_XvMWLd4JLAx1SNUjE7s49P7fmHtlfOf/view).
+`pw5/extras.py` dùng dữ liệu PW5 để thực hiện bốn phần còn thiếu: pickle
+round-trip, xuất ba CSV, đọc cả ba thành DataFrame và truy vấn sinh viên
+bằng một điều kiện bằng. Hiểu `Po` là Pandas theo ngữ cảnh bài giảng.
+Pickle là snapshot riêng, không thay TXT hoặc ZIP và chỉ đọc file vừa
+được chính chương trình tạo trong luồng thực hành.
+
+Sáu test mới PASS: giữ Unicode, dấu phẩy/nháy, ID `001`, tên `NA`, số tín
+chỉ và điểm; CSV rỗng có header; pickle giữ bản ghi và không đụng archive
+cũ khi lỗi ghi; từ chối cột hoặc liên kết sai; truy vấn trả tất cả người
+trùng tên và xử lý input không hợp lệ. Test tiến trình thật nhập và lưu
+bằng `pw5/main.py`, sau đó chạy `extras.py` từ thư mục khác để xuất, đọc
+DataFrame và nhập điều kiện. Lệnh và cú pháp ở [hướng dẫn PW5](pw5/README.md).
+
+Bản `pw5_completed.zip` có 11 file, CRC và mã Python khớp nguồn. Đã giải
+nén vào thư mục tạm và chạy hai tiến trình độc lập với dữ liệu thử: 3 sinh
+viên, 1 môn, 2 điểm. Truy vấn trả đúng `Nguyễn, "An"`; archive PW5 không
+đổi sau khi chạy phần mở rộng. ZIP không chứa cache hoặc dữ liệu phát sinh.
+
 ## Bằng chứng kiểm thử
 
 Chạy từ thư mục gốc bằng Python 3.12:
@@ -89,8 +111,8 @@ Chạy từ thư mục gốc bằng Python 3.12:
 python -B -m unittest discover -s tests -v
 ```
 
-Bộ test hiện có 20 test và đã chạy qua: 14 test bài cũ, 3 test Pandas,
-3 test hồi quy Unicode. Các nhóm kiểm tra bao gồm 12 bài Lab1,
+Bộ test hiện có 26 test và đã chạy qua: 14 test bài cũ, 3 test Pandas,
+3 test hồi quy Unicode và 6 test Labwork 5a. Các nhóm kiểm tra bao gồm 12 bài Lab1,
 ID rỗng/trùng, điểm 0 và 10, điểm ngoài khoảng và NaN, tín chỉ không hợp lệ,
 GPA theo tín chỉ, thứ tự GPA, menu curses mô phỏng, phân trang, cuộn ngang,
 lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi. Test Unicode kiểm tra
@@ -107,6 +129,7 @@ kiểm tra Backspace, nhập rỗng, phím đặc biệt, resize và khôi phụ
 | PW3 | PARTIAL: chức năng qua test, chưa đối chiếu được nguồn PW2 |
 | PW4 | PARTIAL: chức năng qua test, kế thừa giới hạn nguồn PW2 |
 | PW5 | PASS các yêu cầu lưu, nén, khôi phục đã đọc; kế thừa giới hạn nguồn PW2 |
+| Labwork 5a | PASS: pickle, ba CSV, ba DataFrame và query; 6 test riêng đã qua |
 | Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
 
 ### Đối chiếu nguồn ngày 10/10/2026
@@ -139,9 +162,8 @@ Giới hạn này chỉ ảnh hưởng đối chiếu câu 5.
 
 PW2 vẫn chưa đủ nguồn để đối chiếu yêu cầu, cấu trúc, API và việc nộp bài
 riêng. PW3, PW4 và PW5 kế thừa giới hạn này dù chức năng đã qua kiểm thử.
-Không tạo bài PW2 theo suy đoán. Không sửa code và không chạy lại toàn bộ
-bộ test trong lần đối chiếu nguồn này; kết quả 20 test bên trên thuộc ngày
-08/10/2026.
+Không tạo bài PW2 theo suy đoán. Phần bổ sung Labwork 5a không giải quyết
+hai giới hạn nguồn PW2 và danh sách màu này.
 
 Câu hỏi để sinh viên gửi giảng viên:
 

@@ -14,6 +14,7 @@ USTH Advanced Programming with Python 2026
 | Practical Work 3 | `3.student.mark.oop.math.py` |
 | Practical Work 4 | `pw4/main.py` |
 | Practical Work 5 | `pw5/main.py` |
+| Labwork 5a: pickle, CSV, query | `pw5/extras.py` |
 | Labwork 5 Pandas | `labwork5_pandas/main.py` |
 
 Xem [hướng dẫn chạy và kiểm thử](RUNNING_LABS.md),
