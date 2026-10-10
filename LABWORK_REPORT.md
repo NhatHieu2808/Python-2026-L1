@@ -1,6 +1,7 @@
 # Báo cáo bài tập Python 2026-2027
 
-Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm chứng ngày 08/10/2026.
+Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm chứng chức năng ngày 08/10/2026.
+Đối chiếu thêm nguồn PW2 và câu 5 Labwork 1 ngày 10/10/2026.
 
 ## Nguồn yêu cầu
 
@@ -108,12 +109,48 @@ kiểm tra Backspace, nhập rỗng, phím đặc biệt, resize và khôi phụ
 | PW5 | PASS các yêu cầu lưu, nén, khôi phục đã đọc; kế thừa giới hạn nguồn PW2 |
 | Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
 
-Đề Lab1 không cung cấp danh sách màu gốc. Chương trình dùng danh sách mẫu
-có Red ở index 3 và hàm `find_color` nhận danh sách truyền vào.
+### Đối chiếu nguồn ngày 10/10/2026
 
-Chưa tìm thấy đề hoặc starter Practical Work 2 trong inventory và phần
-Practice đã kiểm tra. Đây không phải Labwork 2 về Git. Báo cáo không khẳng
-định đã tái tạo chính xác starter PW2 hoặc đã đọc mọi slide của các chương cũ.
+Đã tìm có mục tiêu trong tài liệu local, thư mục Slides và Labworks trên
+Drive, cùng file, nhánh và lịch sử repository giảng viên:
+
+- [Python Language](https://drive.google.com/file/d/1y58YwY5WIjkgEYrjHudSQYr_5S4AX49N/view):
+  tìm nội dung trích xuất của 70 trang PDF và xem ảnh trang Practice cuối.
+  Tệp kết thúc ở slide đánh số `63/66`; đề PW1 riêng kết thúc ở `66/66`.
+  Chưa tìm thấy đề PW2. Chưa biết nội dung hai slide `64/66` và `65/66`.
+- Đã tìm trong nội dung 23 trang Python Introduction và 17 trang Modules
+  and Packages. Chưa tìm thấy PW2 hoặc danh sách màu. Trang 2 của
+  `labwork3-modules-package.pdf` yêu cầu sao chép PW2 để làm PW3, nhưng
+  không nêu đầy đủ yêu cầu PW2. Thư mục môn học chỉ có Slides và Labworks;
+  các mục trong hai thư mục này chưa có tệp đề hoặc starter mang tên PW2.
+- [Repository giảng viên](https://github.com/phuongnghiem/Python-2026-L1):
+  API GitHub xác nhận chỉ có `README.md`, một nhánh `main` và một commit
+  `05efbb264cd947ca38ceeca356a40eb7c1c73033`. Không tìm được starter PW2
+  hoặc danh sách màu từ lịch sử này.
+- `labwork1.pdf`, trang 2: đã xem chữ và ảnh của toàn bộ câu 5.
+  Đề ghi tìm màu trong danh sách cho trước, Red ở index 3 và Green không
+  tìm thấy, nhưng không kèm danh sách hoặc cho phép tự chọn danh sách.
+
+Giữ danh sách mẫu `["Blue", "Yellow", "White", "Red"]` và code hiện tại.
+Kiểm tra trực tiếp `find_color` bằng Python: Red trả về 3, Green trả về -1,
+Blue trả về 0 và Red trong danh sách rỗng trả về -1. Cả bốn trường hợp PASS.
+Chưa có căn cứ xác nhận danh sách mẫu trùng danh sách giảng viên yêu cầu.
+Giới hạn này chỉ ảnh hưởng đối chiếu câu 5.
+
+PW2 vẫn chưa đủ nguồn để đối chiếu yêu cầu, cấu trúc, API và việc nộp bài
+riêng. PW3, PW4 và PW5 kế thừa giới hạn này dù chức năng đã qua kiểm thử.
+Không tạo bài PW2 theo suy đoán. Không sửa code và không chạy lại toàn bộ
+bộ test trong lần đối chiếu nguồn này; kết quả 20 test bên trên thuộc ngày
+08/10/2026.
+
+Câu hỏi để sinh viên gửi giảng viên:
+
+> Thầy/cô cho em xin đề Practical Work 2 và starter nếu có, hoặc phần slide
+> chứa yêu cầu PW2. Bản Python Language em tải kết thúc ở slide 63/66,
+> còn PW3 yêu cầu phát triển từ PW2. PW2 có phải nộp file riêng và có quy
+> định tên lớp, hàm hoặc cấu trúc bắt buộc không ạ? Với Labwork 1 câu 5,
+> thầy/cô cho em xin danh sách màu đúng thứ tự hoặc xác nhận được tự chọn
+> danh sách. Bản đề em có chỉ ghi Red ở index 3 và Green không tìm thấy.
 
 Đã kiểm tra curses thật với `windows-curses` 2.4.2: menu PW3, PW4, PW5
 nhập sinh viên, môn, điểm và xem kết quả. PW5 khôi phục tên tiếng Việt và
