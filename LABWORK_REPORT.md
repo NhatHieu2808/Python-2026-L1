@@ -2,7 +2,7 @@
 
 Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm thử tự động ngày 10/10/2026.
 Kiểm chứng curses thật ngày 08/10/2026.
-Đối chiếu thêm nguồn PW2 và câu 5 Labwork 1 ngày 10/10/2026.
+Đối chiếu phản hồi giảng viên và kiểm chứng bản nộp PW2 ngày 11/10/2026.
 
 ## Nguồn yêu cầu
 
@@ -13,7 +13,7 @@ có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/20
 | --- | --- |
 | `labwork1.pdf` | 12 bài Python cơ bản, `labwork1.py` |
 | `labwork1b-student-management.pdf` | Practical Work 1, `labwork1b.py` |
-| `labwork2.pdf` | Fork, README, commit và push; xem `LABWORK2.md` |
+| `labwork2.pdf` | PW2: fork L2, README, commit và nộp Labwork 1/1b; xem `LABWORK2.md` |
 | `labwork3-modules-package.pdf` | PW3: `3.student.mark.oop.math.py`; PW4: `pw4/` |
 | `labwork4-files.pdf` | PW5: `pw5/` |
 | `labwork5.pdf` | 14 yêu cầu Pandas: `labwork5_pandas/main.py` |
@@ -119,60 +119,51 @@ lưu file, nén, khôi phục và bảo toàn dữ liệu khi có lỗi. Test Un
 cả ba phiên bản với ASCII, tên tiếng Việt dài, dấu tổ hợp và ký tự rộng;
 kiểm tra Backspace, nhập rỗng, phím đặc biệt, resize và khôi phục tên PW5.
 
-## Trạng thái và giới hạn
+Ngày 11/10/2026 đã kiểm chứng riêng bản nộp tại thư mục L2: 12 bài Labwork
+1 và bốn kiểm tra màu PASS; chạy CLI với Red và Green đều thoát mã 0.
+Labwork 1b chạy CLI bằng dữ liệu thử hai sinh viên, một môn, điểm 8.5 và
+7.0; nhập, liệt kê và xem điểm PASS, giữ tên tiếng Việt và ID có số 0 đầu.
+Kiểm tra nhập lại ID rỗng/trùng và điểm không hợp lệ PASS. Nội dung hai file
+đọc lại từ GitHub khớp SHA-256 với bản L1 và bản local L2. Không chạy lại
+toàn bộ 26 test; kết quả bộ test đó vẫn thuộc ngày 10/10/2026.
+
+## Trạng thái và xác nhận của giảng viên
 
 | Bài | Trạng thái chức năng local |
 | --- | --- |
-| Labwork 1 | PASS, với lưu ý danh sách màu bên dưới |
+| Labwork 1 | PASS: giảng viên cho phép tự chọn danh sách màu |
 | Labwork 1b | PASS |
-| Labwork 2 | PASS: đúng fork và có commit `First student commit` |
-| PW3 | PARTIAL: chức năng qua test, chưa đối chiếu được nguồn PW2 |
-| PW4 | PARTIAL: chức năng qua test, kế thừa giới hạn nguồn PW2 |
-| PW5 | PASS các yêu cầu lưu, nén, khôi phục đã đọc; kế thừa giới hạn nguồn PW2 |
+| Labwork 2 (PW2) | PASS: đúng fork L2, commit `First student commit` và hai bài đã xác nhận trên remote |
+| PW3 | PASS: kế thừa chức năng Labwork 1b, bổ sung làm tròn, GPA, NumPy và curses |
+| PW4 | PASS: tách PW3 thành module và package theo đề |
+| PW5 | PASS: lưu, nén và khôi phục theo đề |
 | Labwork 5a | PASS: pickle, ba CSV, ba DataFrame và query; 6 test riêng đã qua |
 | Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
 
-### Đối chiếu nguồn ngày 10/10/2026
+### Phản hồi giảng viên được cung cấp ngày 11/10/2026
 
-Đã tìm có mục tiêu trong tài liệu local, thư mục Slides và Labworks trên
-Drive, cùng file, nhánh và lịch sử repository giảng viên:
+Sinh viên cung cấp phản hồi trực tiếp của giảng viên, xác nhận:
 
-- [Python Language](https://drive.google.com/file/d/1y58YwY5WIjkgEYrjHudSQYr_5S4AX49N/view):
-  tìm nội dung trích xuất của 70 trang PDF và xem ảnh trang Practice cuối.
-  Tệp kết thúc ở slide đánh số `63/66`; đề PW1 riêng kết thúc ở `66/66`.
-  Chưa tìm thấy đề PW2. Chưa biết nội dung hai slide `64/66` và `65/66`.
-- Đã tìm trong nội dung 23 trang Python Introduction và 17 trang Modules
-  and Packages. Chưa tìm thấy PW2 hoặc danh sách màu. Trang 2 của
-  `labwork3-modules-package.pdf` yêu cầu sao chép PW2 để làm PW3, nhưng
-  không nêu đầy đủ yêu cầu PW2. Thư mục môn học chỉ có Slides và Labworks;
-  các mục trong hai thư mục này chưa có tệp đề hoặc starter mang tên PW2.
-- [Repository giảng viên](https://github.com/phuongnghiem/Python-2026-L1):
-  API GitHub xác nhận chỉ có `README.md`, một nhánh `main` và một commit
-  `05efbb264cd947ca38ceeca356a40eb7c1c73033`. Không tìm được starter PW2
-  hoặc danh sách màu từ lịch sử này.
-- `labwork1.pdf`, trang 2: đã xem chữ và ảnh của toàn bộ câu 5.
-  Đề ghi tìm màu trong danh sách cho trước, Red ở index 3 và Green không
-  tìm thấy, nhưng không kèm danh sách hoặc cho phép tự chọn danh sách.
+- PW2 là thực hành GitHub và nộp Labwork 1/1b lên fork của
+  [`phuongnghiem/Python-2026-L2`](https://github.com/phuongnghiem/Python-2026-L2).
+  Đã hoàn thành tại [fork L2 của sinh viên](https://github.com/NhatHieu2808/Python-2026-L2),
+  [commit `0243787`](https://github.com/NhatHieu2808/Python-2026-L2/commit/02437873359706e18a9d55cb6bb76dd8667a0f4a).
+  Metadata GitHub xác nhận `parent` và `source` đúng repo L2; SHA nhánh
+  `main`, hai bài và README đã được đọc lại từ remote.
+- PW2 được nhắc trong PW3 chính là Labwork 1b. Đối chiếu `labwork1b.py`
+  với `3.student.mark.oop.math.py` xác nhận các trường sinh viên và môn,
+  nhập điểm theo môn, liệt kê sinh viên/môn và xem điểm được kế thừa.
+  Trang 2 đề PW3 yêu cầu thêm `math.floor`, GPA theo tín chỉ bằng NumPy,
+  sắp xếp GPA giảm dần và curses; các phần này đã có trong PW3 và có
+  bằng chứng kiểm thử trước đó. Giới hạn nguồn PW2 trước đây đã được giải đáp.
+- Python Language kết thúc ở slide `63/66` là đúng theo giảng viên.
+- Labwork 1 câu 5 được tự chọn danh sách màu. Giữ
+  `["Blue", "Yellow", "White", "Red"]`: Red trả về 3, Green trả về -1,
+  Blue trả về 0 và danh sách rỗng trả về -1; bốn trường hợp đã chạy PASS.
 
-Giữ danh sách mẫu `["Blue", "Yellow", "White", "Red"]` và code hiện tại.
-Kiểm tra trực tiếp `find_color` bằng Python: Red trả về 3, Green trả về -1,
-Blue trả về 0 và Red trong danh sách rỗng trả về -1. Cả bốn trường hợp PASS.
-Chưa có căn cứ xác nhận danh sách mẫu trùng danh sách giảng viên yêu cầu.
-Giới hạn này chỉ ảnh hưởng đối chiếu câu 5.
-
-PW2 vẫn chưa đủ nguồn để đối chiếu yêu cầu, cấu trúc, API và việc nộp bài
-riêng. PW3, PW4 và PW5 kế thừa giới hạn này dù chức năng đã qua kiểm thử.
-Không tạo bài PW2 theo suy đoán. Phần bổ sung Labwork 5a không giải quyết
-hai giới hạn nguồn PW2 và danh sách màu này.
-
-Câu hỏi để sinh viên gửi giảng viên:
-
-> Thầy/cô cho em xin đề Practical Work 2 và starter nếu có, hoặc phần slide
-> chứa yêu cầu PW2. Bản Python Language em tải kết thúc ở slide 63/66,
-> còn PW3 yêu cầu phát triển từ PW2. PW2 có phải nộp file riêng và có quy
-> định tên lớp, hàm hoặc cấu trúc bắt buộc không ạ? Với Labwork 1 câu 5,
-> thầy/cô cho em xin danh sách màu đúng thứ tự hoặc xác nhận được tự chọn
-> danh sách. Bản đề em có chỉ ghi Red ở index 3 và Green không tìm thấy.
+Đợt nộp L2 này gồm Labwork 1/1b theo phản hồi của giảng viên. PW3, PW4,
+PW5 và các bài Pandas hiện vẫn nằm trong repo L1. Hai điểm thiếu căn cứ
+trước đây về PW2 và danh sách màu đã được giải đáp bằng phản hồi trên.
 
 Đã kiểm tra curses thật với `windows-curses` 2.4.2: menu PW3, PW4, PW5
 nhập sinh viên, môn, điểm và xem kết quả. PW5 khôi phục tên tiếng Việt và

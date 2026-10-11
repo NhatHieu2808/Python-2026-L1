@@ -3,7 +3,7 @@ USTH Advanced Programming with Python 2026
 
 * Trương Quý Nhật Hiếu
 * 2410287
-* Labwork 2 submission completed
+* Labwork 2 (PW2): [Labwork 1/1b đã nộp vào fork lớp L2](https://github.com/NhatHieu2808/Python-2026-L2)
 
 ## Bài tập
 
