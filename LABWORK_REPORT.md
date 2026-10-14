@@ -3,6 +3,7 @@
 Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm thử tự động ngày 10/10/2026.
 Kiểm chứng curses thật ngày 08/10/2026.
 Đối chiếu phản hồi giảng viên và kiểm chứng bản nộp PW2 ngày 11/10/2026.
+Kiểm chứng riêng Labwork 6a và 6b ngày 14/10/2026.
 
 ## Nguồn yêu cầu
 
@@ -17,6 +18,8 @@ có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/20
 | `labwork3-modules-package.pdf` | PW3: `3.student.mark.oop.math.py`; PW4: `pw4/` |
 | `labwork4-files.pdf` | PW5: `pw5/` |
 | `labwork5.pdf` | 14 yêu cầu Pandas: `labwork5_pandas/main.py` |
+| `labwork6a-matplotlib.txt` | Hàm số và PDF: `labwork6_matplotlib/main.py` |
+| `labwork6b-pandas-plot.txt` | Scatter, histogram và boxplot: `labwork6_pandas_plot/main.py` |
 
 Đã đọc đầy đủ 2 trang đề PW5 và 38 trang bài giảng
 `4. Files and Directories.pdf` trước khi triển khai phần lưu dữ liệu.
@@ -28,7 +31,7 @@ có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/20
 - PW4 giữ đầy đủ các chức năng của PW3 khi tách module.
 - PW3, PW4 và PW5 phân trang theo chiều cao màn hình, cuộn ngang bằng Left/Right để xem GPA ở terminal 40 cột.
 - Các hàm nhập cho nhập lại ID trùng. Lớp quản lý từ chối ID rỗng, tín chỉ không phải số nguyên dương và điểm không hữu hạn.
-- `requirements.txt` ở gốc gồm NumPy, Pandas và `windows-curses` cho Windows.
+- `requirements.txt` ở gốc gồm NumPy, Pandas, Matplotlib và `windows-curses` cho Windows.
 - Báo cáo dùng đúng tên file trong repository; xem `RUNNING_LABS.md` để chạy và kiểm thử.
 
 ## Sửa lỗi P2 nhập Unicode trong curses
@@ -103,6 +106,41 @@ nén vào thư mục tạm và chạy hai tiến trình độc lập với dữ 
 viên, 1 môn, 2 điểm. Truy vấn trả đúng `Nguyễn, "An"`; archive PW5 không
 đổi sau khi chạy phần mở rộng. ZIP không chứa cache hoặc dữ liệu phát sinh.
 
+## Labwork 6a và 6b
+
+Nguồn: [đề 6a](https://drive.google.com/file/d/1ZLfUQmONuNF2Wd_LDoyhGprvg8bYjWPU/view),
+[đề 6b](https://drive.google.com/file/d/1_-Q29uunJXDu2mYZmnpuEZ0slM66PaQK/view)
+và [slide Data Visualization](https://drive.google.com/file/d/13EE5qIipM4NKzeaxOzEETM9ylqKP3jNN/view).
+Đối chiếu các trang liên quan về plot, nhãn, savefig, scatter, histogram,
+boxplot và Pandas plotting; không dùng thêm Seaborn.
+
+6a vẽ `y = 2*x + sin(x)**2 + 3` tại 1001 điểm gồm hai đầu [-5, 5],
+bật grid, đặt tiêu đề `hello, po!`, nhãn x/y và xuất `po.pdf`.
+6b đọc CSV gốc, dùng `plot.scatter`, `plot.hist` và `plot.box` của Pandas
+để xuất `scattered.png`, `histo.png` và `box.png`. Trục X scatter là thứ tự
+sinh viên trong CSV, một lựa chọn triển khai vì đề không quy định trục.
+Histogram có ba subplot; boxplot có một axes và ba box.
+
+Ngày 14/10/2026: Python 3.12.14, NumPy 2.5.3, Pandas 3.0.6,
+Matplotlib 3.11.2. Ba test tập trung PASS:
+
+```text
+python -B -m unittest discover -s tests -p test_labwork6.py -v
+```
+
+Kiểm tra đường cong với công thức độc lập bằng `math.sin`, `y(0)=3`,
+nhãn và grid; đối chiếu từng điểm scatter với `csv.DictReader`, tần suất
+histogram và trung vị/tứ phân vị boxplot với dữ liệu gốc. Hai CLI chạy
+từ thư mục khác, thoát mã 0 và tạo đúng bốn output. Số điểm hợp lệ là
+Python 30, Math 28, Database 29; ô thiếu được bỏ qua riêng từng môn.
+SHA-256 CSV không đổi và khớp bản nguồn:
+`7f335eb4aa7d5a0d5ab3dd62c3a6fd072945013ff8745cb33677402355ebe8d3`.
+
+Đã mở xem ba PNG, kiểm tra PDF một trang bằng `pdfinfo`, render và xem
+hình PDF: có dữ liệu, nhãn rõ, không cắt hoặc chồng chữ. `pip check` PASS.
+Không chạy lại bộ test bài cũ trong đợt này; kết quả 26 test ngày 10/10/2026
+ở phần dưới là lịch sử, không phải kết quả kiểm thử mới.
+
 ## Bằng chứng kiểm thử
 
 Chạy từ thư mục gốc bằng Python 3.12:
@@ -111,7 +149,7 @@ Chạy từ thư mục gốc bằng Python 3.12:
 python -B -m unittest discover -s tests -v
 ```
 
-Bộ test hiện có 26 test và đã chạy qua: 14 test bài cũ, 3 test Pandas,
+Bộ test ngày 10/10/2026 có 26 test và đã chạy qua: 14 test bài cũ, 3 test Pandas,
 3 test hồi quy Unicode và 6 test Labwork 5a. Các nhóm kiểm tra bao gồm 12 bài Lab1,
 ID rỗng/trùng, điểm 0 và 10, điểm ngoài khoảng và NaN, tín chỉ không hợp lệ,
 GPA theo tín chỉ, thứ tự GPA, menu curses mô phỏng, phân trang, cuộn ngang,
@@ -139,6 +177,8 @@ toàn bộ 26 test; kết quả bộ test đó vẫn thuộc ngày 10/10/2026.
 | PW5 | PASS: lưu, nén và khôi phục theo đề |
 | Labwork 5a | PASS: pickle, ba CSV, ba DataFrame và query; 6 test riêng đã qua |
 | Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
+| Labwork 6a | PASS: công thức, khoảng, nhãn, grid và PDF đã kiểm chứng ngày 14/10/2026 |
+| Labwork 6b | PASS: ba dạng biểu đồ và dữ liệu gốc đã kiểm chứng ngày 14/10/2026 |
 
 ### Phản hồi giảng viên được cung cấp ngày 11/10/2026
 

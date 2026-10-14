@@ -16,6 +16,8 @@ python pw4/main.py
 python pw5/main.py
 python pw5/extras.py
 python labwork5_pandas/main.py
+python labwork6_matplotlib/main.py
+python labwork6_pandas_plot/main.py
 ```
 
 Trên Windows, requirements cài `windows-curses`. PW3, PW4 và PW5 dùng curses
@@ -57,4 +59,22 @@ Chạy bộ kiểm thử từ thư mục gốc:
 python -B -m unittest discover -s tests -v
 ```
 
-Các test tạo dữ liệu giả trong thư mục tạm và tự dọn sau khi chạy.
+Các test bài quản lý sinh viên tạo dữ liệu giả trong thư mục tạm và tự dọn
+sau khi chạy. Test bài Pandas và Labwork 6 còn đối chiếu với CSV của giáo viên.
+
+## Chạy Labwork 6a và 6b
+
+Hai script dùng backend `Agg`, lưu hình mà không mở cửa sổ. Đường dẫn
+dữ liệu và output được tính từ vị trí script, nên có thể chạy từ thư mục khác.
+Labwork 6a ghi `labwork6_matplotlib/po.pdf`. Labwork 6b đọc CSV gốc tại
+`labwork5_pandas/scores.csv`, ghi `scattered.png`, `histo.png` và `box.png`
+trong `labwork6_pandas_plot/`. Chạy lại sẽ cập nhật các hình này.
+
+Chạy kiểm thử riêng phần mới:
+
+```text
+python -B -m unittest discover -s tests -p test_labwork6.py -v
+```
+
+Test Labwork 6 chạy hai script từ thư mục tạm và tạo lại bốn output trong
+thư mục bài. Xem [cách đọc các biểu đồ](labwork6_pandas_plot/README.md).
