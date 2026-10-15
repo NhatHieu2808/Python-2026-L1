@@ -18,6 +18,7 @@ python pw5/extras.py
 python labwork5_pandas/main.py
 python labwork6_matplotlib/main.py
 python labwork6_pandas_plot/main.py
+python 2.student.mark.oop.py
 ```
 
 Trên Windows, requirements cài `windows-curses`. PW3, PW4 và PW5 dùng curses
@@ -78,3 +79,16 @@ python -B -m unittest discover -s tests -p test_labwork6.py -v
 
 Test Labwork 6 chạy hai script từ thư mục tạm và tạo lại bốn output trong
 thư mục bài. Xem [cách đọc các biểu đồ](labwork6_pandas_plot/README.md).
+
+## Chạy Labwork 7 OOP
+
+```text
+python 2.student.mark.oop.py
+python -B -m unittest discover -s tests -p test_labwork7.py -v
+```
+
+Bài dùng thư viện chuẩn. Nhập số sinh viên, ID/tên/ngày sinh, số môn và
+ID/tên môn; nhập 0 nếu danh sách rỗng. Menu 1/2 liệt kê sinh viên/môn,
+3 nhập điểm một môn, 4 xem điểm môn đó, 0 thoát. ID rỗng/trùng và điểm
+không hợp lệ được yêu cầu nhập lại. Điểm từ 0 đến 10, không làm tròn;
+`Not entered` nghĩa là chưa nhập điểm. Dữ liệu chỉ giữ trong bộ nhớ.

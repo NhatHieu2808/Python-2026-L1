@@ -18,6 +18,7 @@ USTH Advanced Programming with Python 2026
 | Labwork 5 Pandas | `labwork5_pandas/main.py` |
 | Labwork 6a: Matplotlib | `labwork6_matplotlib/main.py` |
 | Labwork 6b: Pandas plot | `labwork6_pandas_plot/main.py` |
+| Labwork 7: OOP student marks | `2.student.mark.oop.py` |
 
 Xem [hướng dẫn chạy và kiểm thử](RUNNING_LABS.md),
 [báo cáo kiểm chứng](LABWORK_REPORT.md), và [cách lưu dữ liệu PW5](pw5/README.md).
@@ -31,3 +32,7 @@ Labwork 6a xuất [po.pdf](labwork6_matplotlib/po.pdf). Labwork 6b xuất
 [boxplot](labwork6_pandas_plot/box.png) từ điểm gốc.
 Xem [hướng dẫn Labwork 6b](labwork6_pandas_plot/README.md) về trục scatter
 và các điểm thiếu.
+
+Labwork 7 chuyển các chức năng của `labwork1b.py` sang OOP, có đóng gói
+và đa hình. Đề gọi bài này là “Practical work 2”; đây là bài OOP mới,
+khác với Labwork 2 thực hành GitHub và bản nộp L2 ở trên.

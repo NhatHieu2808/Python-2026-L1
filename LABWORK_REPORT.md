@@ -4,6 +4,7 @@ Sinh viên: Trương Quý Nhật Hiếu, 2410287. Kiểm thử tự động ngà
 Kiểm chứng curses thật ngày 08/10/2026.
 Đối chiếu phản hồi giảng viên và kiểm chứng bản nộp PW2 ngày 11/10/2026.
 Kiểm chứng riêng Labwork 6a và 6b ngày 14/10/2026.
+Kiểm chứng riêng Labwork 7 OOP ngày 15/10/2026.
 
 ## Nguồn yêu cầu
 
@@ -20,6 +21,7 @@ có 6 PDF Labworks, 5 PDF Slides và 2 CSV tại lần kiểm kê ngày 08/10/20
 | `labwork5.pdf` | 14 yêu cầu Pandas: `labwork5_pandas/main.py` |
 | `labwork6a-matplotlib.txt` | Hàm số và PDF: `labwork6_matplotlib/main.py` |
 | `labwork6b-pandas-plot.txt` | Scatter, histogram và boxplot: `labwork6_pandas_plot/main.py` |
+| `labwork7. OOP in Python.pdf` | OOP quản lý điểm: `2.student.mark.oop.py` |
 
 Đã đọc đầy đủ 2 trang đề PW5 và 38 trang bài giảng
 `4. Files and Directories.pdf` trước khi triển khai phần lưu dữ liệu.
@@ -141,6 +143,36 @@ hình PDF: có dữ liệu, nhãn rõ, không cắt hoặc chồng chữ. `pip c
 Không chạy lại bộ test bài cũ trong đợt này; kết quả 26 test ngày 10/10/2026
 ở phần dưới là lịch sử, không phải kết quả kiểm thử mới.
 
+## Labwork 7 OOP
+
+Nguồn: [đề một trang](https://drive.google.com/file/d/1T69W83iuL2QUb43Fzm_LOIVM6qFJKmGY/view)
+và [slide OOP](https://drive.google.com/file/d/1Wq5-Aa2QSThWG8K1_wuZGBsWR7Beb3WU/view).
+Tên trên đề là “Practical work 2: OOP’ed student mark management”. Báo cáo
+gọi bài này là Labwork 7 theo tên file Drive; giữ nguyên kết luận về PW2
+thực hành GitHub và bản nộp L2 theo phản hồi giảng viên ngày 11/10/2026.
+
+`2.student.mark.oop.py` phát triển từ các chức năng của `labwork1b.py`:
+nhập số lượng/thông tin sinh viên và môn, nhập điểm theo môn, liệt kê và
+xem điểm. `NamedRecord` đóng gói ID/tên; `Course` kế thừa phương thức chung,
+`Student` ghi đè `input()`/`list()` và thêm ngày sinh. Luồng nhập/liệt kê
+gọi cùng phương thức trên từng đối tượng. Getter/setter kiểm tra dữ liệu;
+ID cố định, danh sách trả về tuple; điểm riêng trong `StudentMarkManager`
+chỉ cập nhật qua `set_mark()` với kiểm tra tham chiếu và giá trị hữu hạn.
+
+Ngày 15/10/2026, Python 3.12.14: 5/5 test tập trung PASS:
+
+```text
+python -B -m unittest discover -s tests -p test_labwork7.py -v
+```
+
+Hai test chạy CLI bằng tiến trình thật từ thư mục khác: hai sinh viên tên
+tiếng Việt, hai môn, đủ menu nhập/liệt kê/xem điểm, và danh sách rỗng;
+cả hai thoát mã 0. Kiểm tra nhập lại ID rỗng/trùng, số lượng sai, môn không
+tồn tại, chưa có điểm, điểm 0/10, ngoài khoảng, NaN và infinity. Các test
+API kiểm tra đóng gói, cập nhật hợp lệ, từ chối sai loại bản ghi, đa hình,
+tách điểm theo cặp sinh viên–môn và giữ nguyên 8.75, 7.125, 9.375.
+Chỉ thay bài mới, test và ba tài liệu; không chạy lại test các bài cũ.
+
 ## Bằng chứng kiểm thử
 
 Chạy từ thư mục gốc bằng Python 3.12:
@@ -179,6 +211,7 @@ toàn bộ 26 test; kết quả bộ test đó vẫn thuộc ngày 10/10/2026.
 | Labwork 5 Pandas | PASS: 14/14 yêu cầu, 3 test riêng đã qua |
 | Labwork 6a | PASS: công thức, khoảng, nhãn, grid và PDF đã kiểm chứng ngày 14/10/2026 |
 | Labwork 6b | PASS: ba dạng biểu đồ và dữ liệu gốc đã kiểm chứng ngày 14/10/2026 |
+| Labwork 7 OOP | PASS: chức năng, đóng gói, đa hình; 5 test mới đã qua ngày 15/10/2026 |
 
 ### Phản hồi giảng viên được cung cấp ngày 11/10/2026
 
